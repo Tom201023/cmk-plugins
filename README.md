@@ -10,7 +10,7 @@ Install the ntfy app on iOS and Android on your phone
  
 Checkmk usage
 Select the 'ntfy-plugin' as notification plugin
-Paramater 1 (mandatory): Provide a unique topic, which you also need to add in the app
+Parameter 1 (mandatory): Provide a unique topic, which you also need to add in the app
 Parameter 2 (optional): Provide an access token in the format 'Bearer tk_AgQdq7mVBoFD37zQVN29RhuMzNIz2'
 
 Some additional noteworthy comments
