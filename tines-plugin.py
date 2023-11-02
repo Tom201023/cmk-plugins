@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# tines-plugin
+# Tines plugin
 # Bulk: no
 #
 # Sends notifications to tines.com for infrastructure and security automation
-# For details, please check https://www.tines.io
+# For details, please check https://www.tines.com
 # 
 # Checkmk usage
 # Select the 'tines-plugin' as notification plugin
@@ -96,19 +96,14 @@ def GetNotificationDetails():
 def StartTinesWorkflow(WebHookURL, data):
 	return_code = 0
 
-	# Set data section
-	webdata = {
-		'data': data
-	}
-
-    # Set header information
+	# Set header information
 	headers = {
         'Content-Type': 'application/json'
     }
 
 	try:
         # Make the POST request to start the workflow
-		response = requests.post(WebHookURL, headers=headers, json=webdata)
+		response = requests.post(WebHookURL, headers=headers, json=data)
 
         # Check the response status code
 		if response.status_code == 201:
@@ -141,4 +136,3 @@ def main():
 
 if __name__ == '__main__':
 	sys.exit(main())
-
