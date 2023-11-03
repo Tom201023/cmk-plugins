@@ -32,3 +32,19 @@ Select the 'Tines plugin' as notification plugin
 - In the community (free) mode, you can only start 500 workflows (also called stories) per day, and you are limited to 3 different stories
 - Error messages are written to ~/var/log/notify.log. In case of any issue, please have a look there
 - implemented using VC Code with Pydantic (type checking mode: Basic) and Black
+
+# Zapier-plugin
+Sends notifications to Zapier.com for all types of automation
+For details, please check https://www.zapier.com
+  
+### Checkmk usage
+Select the 'zapier-plugin' as the notification plugin
+- Parameter 1 (mandatory): Provide the webhook URL copied from a webhook task in Zapier that is the starting point for your workflow
+ 
+### Some additional noteworthy comments
+- Unfortunately, Zapier requires a paid subscription to use a webhook task.
+- You can get a free trial for the first 14 days.
+- Zapier limitations: 10,000 webhook calls/5 minutes and 30 webhook calls/30 seconds (https://help.zapier.com/hc/en-us/articles/8496288690317#h_01HBGES5DWAJT066TDGX3G6R0G) 
+- No retry after receiving a 429 error for exceeding these limits
+- Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
+- implemented with VC Code using Pydantic (type checking mode: Basic) and Black
