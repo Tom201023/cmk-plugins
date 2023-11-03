@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-# Tines plugin
+# IFTTT plugin
 # Bulk: no
 #
-# Sends notifications to tines.com for infrastructure and security automation
-# For details, please check https://www.tines.com
-# 
+# Sends notifications to IFTTT.Com (If This, Than That) for all types of automation
+# For details, please check https://www.ifttt.com
+#  
 # Checkmk usage
-# Select the 'tines-plugin' as notification plugin
-# Parameter 1 (mandatory): Provide the Webhook URL copied from a Webhook task in Tines, which is the starting point for your workflow
-#
+# Select the 'ifttt-plugin' as the notification plugin
+#  TBD Parameter 1 (mandatory): Provide the webhook URL copied from a webhook task in IFTTT that is the starting point for your workflow
+# 
 # Some additional noteworthy comments
-# - In the community (free) mode, you can only start 500 workflows (also called stories) per day, and you are limited to 3 different stories
-# - Error messages are written to ~/var/log/notify.log. In case of any issue, please have a look there
-# - implemented using VC Code with Pydantic (type checking mode: Basic) and Black
+# - xxxx
+# - Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
+# - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
 
 
 import os
@@ -21,23 +21,19 @@ import requests
 import json
 
 
-# Get Tines WebHookURL from the environment variables and validate it
+# Get IFTTT WebHookURL from the environment variables and validate it
 def GetPluginParams():
 	env_vars = os.environ
 
 	WebHookURL = str(env_vars.get("NOTIFY_PARAMETER_1"))
-	
+
 	# "None", if not in the environment variables
 	if (WebHookURL == "None"):
-		print("Tines-plugin: Mandatory first parameter is missing: Webhook URL")
+		print("ifttt-plugin: Mandatory first parameter is missing: Webhook URL")
 		return 2, "" 	# do not return anything, create final error
 	
-	if "https://" not in WebHookURL:
-		print(f"Tines-plugin: Parameter 1 is not a URL starting with https://: {WebHookURL}")
-		return 2, ""	# do not return anything, create final error
-
-	if ".tines.com/webhook/" not in WebHookURL:
-		print(f"Tines-plugin: Parameter 1 does not have the format of a Tines Webhook (https://*.tines.com/webhook/*): {WebHookURL}")
+	if "https://hooks.zapier.com/hooks/catch" not in WebHookURL:  #### TBD
+		print(f"ifttt-plugin: Parameter 1 is not a URL starting with https://hooks.zapier.com/hooks/catch: {WebHookURL}")
 		return 2, ""	# do not return anything, create final error
 
 	return 0, WebHookURL
@@ -92,11 +88,11 @@ def GetNotificationDetails():
 	return data
 
 
-# Send the message to Tines.io
-def StartTinesWorkflow(WebHookURL, data):
+# Send the message to IFTTT
+def StartStartIftttWorkflow(WebHookURL, data):
 	return_code = 0
 
-	# Set header information
+    # Set header information
 	headers = {
         'Content-Type': 'application/json'
     }
@@ -106,15 +102,15 @@ def StartTinesWorkflow(WebHookURL, data):
 		response = requests.post(WebHookURL, headers=headers, json=data)
 
         # Check the response status code
-		if response.status_code == 201:
-			print(f"Tines-plugin: Workflow started successfully.")
+		if response.status_code == 200:
+			print(f"ifttt-plugin: Workflow started successfully.")
 		else:
-			print(f"Tines-plugin: Failed to start the workflow. Status code: {response.status_code}")
+			print(f"ifttt-plugin: Failed to start the workflow. Status code: {response.status_code}")
 			print(response.text)
 			return_code = 2
 
 	except Exception as e:
-		print(f"Tines-plugin: An error occurred: {e}")
+		print(f"ifttt-plugin: An error occurred: {e}")
 		return_code = 2
 
 	return return_code	
@@ -129,10 +125,11 @@ def main():
 
 	data = GetNotificationDetails()
 
-	return_code = StartTinesWorkflow(WebHookURL, data)
+	return_code = StartStartIftttWorkflow(WebHookURL, data)
 
 	return return_code
 
 
 if __name__ == '__main__':
 	sys.exit(main())
+
