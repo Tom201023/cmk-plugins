@@ -15,6 +15,7 @@
 # - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
 
 
+
 import os
 import sys
 import requests

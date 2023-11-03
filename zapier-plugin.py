@@ -17,7 +17,6 @@
 # - Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
 # - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
 
-
 import os
 import sys
 import requests
