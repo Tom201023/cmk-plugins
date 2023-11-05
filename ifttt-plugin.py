@@ -2,18 +2,18 @@
 # IFTTT plugin
 # Bulk: no
 #
-# Sends notifications to IFTTT.Com (If This, Than That) for all types of automation
-# For details, please check https://www.ifttt.com
+# Sends notifications to IFTTT.com (If This, Then That) for all types of automation
+# See https://www.ifttt.com for details
 #  
 # Checkmk usage
 # Select the 'ifttt-plugin' as the notification plugin
-#  TBD Parameter 1 (mandatory): Provide the webhook URL copied from a webhook task in IFTTT that is the starting point for your workflow
+#  Parameter 1 (mandatory): The event name defined for the webhook, e.g. 'cmk_notification'
+#  Parameter 2 (mandatory): Your personal IFTTT account key, e.g. '0_1ft9AyL1zB2Lx3sC456'
 # 
 # Some additional noteworthy comments
-# - xxxx
-# - Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
+# - You can find your IFTTT key here: My Services > Webhooks > Settings
+# - Error messages will be written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
 # - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
-
 
 
 import os
@@ -26,16 +26,21 @@ import json
 def GetPluginParams():
 	env_vars = os.environ
 
-	WebHookURL = str(env_vars.get("NOTIFY_PARAMETER_1"))
+	event_name = str(env_vars.get("NOTIFY_PARAMETER_1"))
+	ifttt_key = str(env_vars.get("NOTIFY_PARAMETER_2"))
 
-	# "None", if not in the environment variables
-	if (WebHookURL == "None"):
-		print("ifttt-plugin: Mandatory first parameter is missing: Webhook URL")
+	# "None", if event_name is not in the environment variables
+	if (event_name == "None"):
+		print("ifttt-plugin: Mandatory first parameter is missing: Event name")
 		return 2, "" 	# do not return anything, create final error
 	
-	if "https://hooks.zapier.com/hooks/catch" not in WebHookURL:  #### TBD
-		print(f"ifttt-plugin: Parameter 1 is not a URL starting with https://hooks.zapier.com/hooks/catch: {WebHookURL}")
-		return 2, ""	# do not return anything, create final error
+	# "None", if ifttt_key is not in the environment variables
+	if (ifttt_key == "None"):
+		print("ifttt-plugin: Mandatory second parameter is missing: IFTTT webhook key")
+		return 2, "" 	# do not return anything, create final error
+
+	# Build correct URL
+	WebHookURL = f"https://maker.ifttt.com/trigger/{event_name}/json/with/key/{ifttt_key}"
 
 	return 0, WebHookURL
 	
@@ -90,7 +95,7 @@ def GetNotificationDetails():
 
 
 # Send the message to IFTTT
-def StartStartIftttWorkflow(WebHookURL, data):
+def StartIftttApplet(WebHookURL, data):
 	return_code = 0
 
     # Set header information
@@ -100,7 +105,7 @@ def StartStartIftttWorkflow(WebHookURL, data):
 
 	try:
         # Make the POST request to start the workflow
-		response = requests.post(WebHookURL, headers=headers, json=data)
+		response = requests.post(WebHookURL, headers=headers, data=json.dumps(data))
 
         # Check the response status code
 		if response.status_code == 200:
@@ -126,7 +131,7 @@ def main():
 
 	data = GetNotificationDetails()
 
-	return_code = StartStartIftttWorkflow(WebHookURL, data)
+	return_code = StartIftttApplet(WebHookURL, data)
 
 	return return_code
 
