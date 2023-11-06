@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ntfy.sh plugin
+# ntfy-plugin
 # Bulk: no
 #
 # Sends notifications to mobile phones (iOS and Android) using the ntfy.sh service 

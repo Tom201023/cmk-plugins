@@ -48,3 +48,17 @@ Select the 'zapier-plugin' as the notification plugin
 - No retry after receiving a 429 error for exceeding these limits
 - Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
 - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
+
+# ifttt-plugin
+Sends notifications to IFTTT.com (If This, Then That) for all types of automation
+See https://www.ifttt.com for details
+  
+### Checkmk usage
+Select the 'ifttt-plugin' as the notification plugin
+- Parameter 1 (mandatory): The event name defined for the webhook, e.g. 'cmk_notification'
+- Parameter 2 (mandatory): Your personal IFTTT account key, e.g. '0_1ft9AyL1zB2Lx3sC456'
+
+### Some additional noteworthy comments
+- You can find your IFTTT key here: My Services > Webhooks > Settings
+- Error messages will be written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
+- implemented with VC Code using Pydantic (type checking mode: Basic) and Black
