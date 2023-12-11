@@ -7,9 +7,9 @@
 # 
 # Checkmk usage
 # Select the 'tines-plugin' as notification plugin
-# Parameter 1 (mandatory): Provide the Webhook URL copied from a Webhook task in Tines, which is the starting point for your workflow
+# Mandatory parameter Tines Webhook URL: Provide the Webhook URL copied from a Webhook task in Tines, which is the starting point for your workflow
 #
-# Some additional noteworthy comments
+# Some additional comments
 # - In the community (free) mode, you can only start 500 workflows (also called stories) per day, and you are limited to 3 different stories
 # - Error messages are written to ~/var/log/notify.log. In case of any issue, please have a look there
 # - implemented using VC Code with Pydantic (type checking mode: Basic) and Black
@@ -18,14 +18,13 @@
 import os
 import sys
 import requests
-import json
 
 
 # Get Tines WebHookURL from the environment variables and validate it
 def GetPluginParams():
 	env_vars = os.environ
 
-	WebHookURL = str(env_vars.get("NOTIFY_PARAMETER_1"))
+	WebHookURL = str(env_vars.get("NOTIFY_PARAMETER_TINESWEBHOOKURL"))
 	
 	# "None", if not in the environment variables
 	if (WebHookURL == "None"):
@@ -83,7 +82,7 @@ def GetNotificationDetails():
 	for key, value in env_vars.items():
 		if "NOTIFY_" in key:
 			match key:
-				case "NOTIFY_PARAMETER_1": # Filter our the WebHookURL secret
+				case "NOTIFY_PARAMETER_TINESWEBHOOKURL": # Filter our the WebHookURL secret
 					pass
 				case _:
 					data[key] = value

@@ -1,2 +1,3 @@
 .gitignore
 zzz-misc/
+aws-sns-text-plugin.py
