@@ -20,6 +20,9 @@ Select the 'ntfy-plugin' as notification plugin
  - Error messages are written to ~/var/log/notify.log. In case of any issue, please have a look there
  - This is my first Python program. Please look at it with clemency. I used VC Code with Pydantic (type checking mode: Basic) and Black
 
+### Version history
+- 1.0.0 Initial version. Configuration via generic UI
+
 # Tines-plugin
 Sends notifications to tines.com for infrastructure and security automation
 For details, please check https://www.tines.com
@@ -32,6 +35,10 @@ Select the 'tines-plugin' as notification plugin
 - In the community (free) mode, you can only start 500 workflows (also called stories) per day, and you are limited to 3 different stories
 - Error messages are written to ~/var/log/notify.log. In case of any issue, please have a look there
 - implemented using VC Code with Pydantic (type checking mode: Basic) and Black
+
+### Version history
+- 1.0.0 Initial version. Configuration via generic UI
+- 2.0.0 Supports configuration via a dedicated UI. Please update your notification configuration in the UI
 
 # Zapier-plugin
 Sends notifications to Zapier.com for all types of automation
@@ -49,6 +56,9 @@ Select the 'zapier-plugin' as the notification plugin
 - Error messages are written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
 - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
 
+### Version history
+- 1.0.0 Initial version. Configuration via generic UI
+
 # ifttt-plugin
 Sends notifications to IFTTT.com (If This, Then That) for all types of automation
 See https://www.ifttt.com for details
@@ -62,3 +72,6 @@ Select the 'ifttt-plugin' as the notification plugin
 - You can find your IFTTT key here: My Services > Webhooks > Settings
 - Error messages will be written to ~/var/log/notify.log. Please take a look there if you encounter any problems.
 - implemented with VC Code using Pydantic (type checking mode: Basic) and Black
+
+### Version history
+- 1.0.0 Initial version. Configuration via generic UI
